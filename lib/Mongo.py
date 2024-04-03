@@ -9,6 +9,7 @@ from bson.objectid import ObjectId
 from datetime import datetime
 from dotenv import load_dotenv,find_dotenv
 import os
+import time
 
 class MyMongo: 
     
@@ -22,10 +23,10 @@ class MyMongo:
         self.convertData= None
         
     # Connect to MongoClient
-    def connect(self,db_name:str):
+    def connect(self,collection:str):
         self.client     = MongoClient(self.url)
         self.db         = self.client[os.environ.get("DB_NAME")]
-        self.collection = self.db[os.environ.get("COLLECTION_NAME")]
+        self.collection = self.db[collection]
         
     # Convert list to MongdoDb format(Dict)
     def getDocument(self,receive:list):
@@ -118,34 +119,37 @@ if __name__ == "__main__":
     test.connect("data")
 
     # Meta Data
-    sensor_id    = 2
-    sensor_type  = "pressure"
-    sensor_unit  = "pa"
+    sensor_id    = 1
+    sensor_type  = "temperature"
+    sensor_unit  = "celcius"
     
     # Value
-    sensor_value = 2
+    for i in range(1,100,5):
+        sensor_value = i
+        
+        # Compile data
+        sensor_info  = [sensor_id,sensor_type,sensor_unit]
     
-    # Compile data
-    sensor_info  = [sensor_id,sensor_type,sensor_unit]
-   
-    # Create Document
-    doc_list = [sensor_info,sensor_value]
-    # document =  test.create_document(doc_list)
+        # Create Document
+        doc_list = [sensor_info,sensor_value]
+        time.sleep(0.5)
+        document =  test.create_document(doc_list)
     
+        
     # Read Document
-    doc = test.getDocument(doc_list)
+    # doc = test.getDocument(doc_list)
 
-    # Update document
-    new_data = test.getDocument(doc_list)
+    # # Update document
+    # new_data = test.getDocument(doc_list)
 
-    document = test.update_document(2,"pressure",new_data)
+    # document = test.update_document(3,"pressure",new_data)
     
     # Delete many Document
-    delete_filter = {"value": {"$lt": 1200}} # delete doc that less than 1200
-    deleted_count = test.delete_many_documents(delete_filter)
+    # delete_filter = {"value": {"$lt": 1200}} # delete doc that less than 1200
+    # deleted_count = test.delete_many_documents(delete_filter)
     
     # Get sensor package
-    received_data = test.track_reading(sensor_id,sensor_type)
+    # received_data = test.track_reading(sensor_id,sensor_type)
     
     
 

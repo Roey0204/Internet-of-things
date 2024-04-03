@@ -1,3 +1,5 @@
 pymongo==4.1.1
 dnspython==2.2.1
 python-dotenv==0.20.0
+dht11==0.1.0
+gpiozero==1.6.2
