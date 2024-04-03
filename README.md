@@ -8,3 +8,4 @@ This project developed a project centered around utilizing a DHT11 sensor to act
 ## Dashboard Live Monitor 
 <img src="https://github.com/Roey0204/Internet-of-things/blob/main/img/dashboard.png" alt="Image1" width="800" height="400">
 
+[Monitoring Dashboard](https://charts.mongodb.com/charts-roey_test-mgkgx/public/dashboards/b3d49271-87d0-431d-8230-70c983e66f84)
